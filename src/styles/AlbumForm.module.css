@@ -1,0 +1,67 @@
+.parentContainer {
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+}
+
+.container {
+    width     : 50%;
+    max-width : 100%;
+    margin-top: 0.5rem;
+}
+
+.formGroup {
+    position: relative;
+    margin: 0 0.5rem;
+}
+
+.formStyle {
+    padding         : 0.8rem 1.25rem;
+    padding-left    : 3.4rem;
+    height          : 2rem;
+    width           : 50%;
+    font-weight     : 500;
+    border-radius   : 0.25rem;
+    font-size       : 0.875rem;
+    line-height     : 1.375rem;
+    letter-spacing  : 0.03125rem;
+    outline         : none;
+    color           : #c4c3ca;
+    background-color: #344955;
+    border          : none;
+    transition      : all 200ms linear;
+    box-shadow      : 0 0.25rem 0.5rem 0 rgba(21, 21, 21, .2);
+}
+
+.btn {
+    border-radius   : 0.25rem;
+    height          : 2 rem;
+    font-size       : 0.8125rem;
+    font-weight     : 600;
+    text-transform  : uppercase;
+    transition      : all 200ms linear;
+    padding         : 0 1.875rem;
+    margin          : 0.25rem 0.25rem;
+    letter-spacing  : 0.0625rem;
+    display         : inline-flex;
+    align-items     : center;
+    justify-content : center;
+    text-align      : center;
+    border          : none;
+    background-color: #ffeba7;
+    color           : #78A083;
+    box-shadow      : 0 0.5rem 1.5rem 0 rgba(255, 235, 167, .2);
+}
+
+.btn:active,
+.btn:focus {
+    background-color: #78A083;
+    color           : #ffeba7;
+    box-shadow      : 0 0.5rem 1.5rem 0 rgba(16, 39, 112, .2);
+}
+
+.btn:hover {
+    background-color: #78A083;
+    color           : #ffeba7;
+    box-shadow      : 0 0.5rem 1.5rem 0 rgba(16, 39, 112, .2);
+}

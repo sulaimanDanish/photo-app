@@ -1,0 +1,155 @@
+.imageContainer {
+	font-family    : Lato, sans-serif;
+	min-height     : 100vh;
+	padding        : 1.5rem;
+}
+
+.imageGrid div {
+	width              : 100%;
+	height             : 100%;
+	background-repeat  : no-repeat;
+	background-size    : cover;
+	background-position: center center;
+	padding: 1.5rem;
+}
+
+.imageGrid {
+	display  : flex;
+	flex-wrap: wrap;
+}
+
+
+@media screen and (max-width: 400px) {
+	.image-grid {
+		flex-direction: column;
+		flex-wrap     : no-wrap;
+	}
+
+	.image-grid div {
+		width: 100%;
+	}
+}
+
+.navigation {
+	display        : flex;
+	justify-content: space-around;
+	position       : relative;
+	top            : 1rem;
+	padding        : 0 1.5rem;
+}
+
+.backButton,
+.addButton {
+	border          : 0.15rem solid #000;
+	background-color: #32474d;
+	color           : var(--secondary-color);
+	font-size       : 1.2rem;
+	font-weight     : 400;
+	cursor          : pointer;
+	padding         : 0.3rem 0.5rem;
+	box-shadow      : 2px 2px 0px 1px rgba(0, 0, 0, 1);
+	transition      : all 0.2s ease-in-out;
+	margin-left     : 1rem;
+}
+
+.backButton:hover,
+.addButton:hover {
+	transform       : scale(0.9);
+	box-shadow      : 1px 1px 0px 1px rgba(0, 0, 0, 1);
+	background-color: var(--secondary-color);
+	color           : #78A083;
+}
+
+.images {
+	width       : 100%;
+	display     : block;
+	aspect-ratio: 1 / 1;
+	object-fit  : cover;
+	transition  : transform 1000ms;
+}
+
+.ulist {
+	list-style           : none;
+	margin               : 0;
+	padding              : 0;
+	display              : grid;
+	gap                  : 0.5rem;
+	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+	max-width            : 100%;
+	width                : 70rem;
+}
+
+.figures {
+	margin  : 0;
+	position: relative;
+	overflow: hidden;
+}
+
+.figures::after {
+	content         : '';
+	position        : absolute;
+	top             : 50%;
+	left            : 50%;
+	width           : 200%;
+	height          : 200%;
+	background      : rgba(0, 0, 0, 0.5);
+	transform-origin: center;
+	opacity         : 0;
+	transform       : scale(2);
+	transition      : opacity 300ms;
+}
+
+.figcaptions {
+	position       : absolute;
+	top            : 0;
+	left           : 0;
+	width          : 100%;
+	height         : 100%;
+	display        : flex;
+	flex-direction : column; 
+	justify-content: center;
+	place-items    : center;
+	text-align     : center;
+	padding        : 1rem;
+	color          : white;
+	font-size      : 1.2rem;
+	z-index        : 1;
+	opacity        : 0;
+	transition     : opacity 600ms, transform 600ms;
+}
+
+.imageWrapper:is(:hover, :focus) .figures::after {
+	opacity: 1;
+}
+
+.imageWrapper:is(:hover, :focus) .figcaptions {
+	opacity   : 1;
+	transition: opacity 600ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.figcaptions {
+		transform: translate3d(0, 2rem, 0);
+	}
+
+	.figures::after {
+		border-radius: 50%;
+		opacity      : 1;
+		transform    : scale(0);
+		transition   : transform 900ms;
+	}
+
+	.imageWrapper:is(:hover, :focus) .figures::after {
+		transform: scale(2.5);
+	}
+
+	.imageWrapper:is(:hover, :focus) .figcaptions {
+		opacity   : 1;
+		transform : translate3d(0, 0, 0);
+		transition: opacity 600ms 400ms, transform 600ms 400ms;
+	}
+
+	.imageWrapper:is(:hover, :focus) .images {
+		transform: scale(1.2);
+	}
+}
