@@ -4,7 +4,7 @@ import { useValue } from "../photoContext";
 import ImageForm from "./ImageForm";
 
 function ImageList() {
-  const { toggleAlbum, handleAddImages, toggleAddImages, images,editImage,deleteImage } = useValue();
+  const { toggleAlbum, handleAddImages, toggleAddImages, images, editImage, deleteImage,updateImage } = useValue();
 
   return (
     <>
@@ -17,21 +17,22 @@ function ImageList() {
         </div>
       </div>
       {toggleAddImages && <ImageForm />}
+      {updateImage &&  <ImageForm />}
       <div className={styles.imageContainer}>
         <ul className={styles.imageGrid}>
           {images.map((item, index) => (
             <li key={index}>
               <div>
-                <a href="" className={styles.imageWrapper}>
+                <div className={styles.imageWrapper}>
                   <figure className={styles.figures}>
                     <img className={styles.images} src={item.url} />
                     <figcaption className={styles.figcaptions}>
                       {item.title}
-                      <button onClick={()=>editImage(index)}>Edit</button>
-                      <button onClick={()=>deleteImage(index)}>Delete</button>
-                      </figcaption>
+                      <button  onClick={() => editImage(index)}>Edit</button>
+                      <button onClick={() => deleteImage(index)}>Delete</button>
+                    </figcaption>
                   </figure>
-                </a>
+                </div>
               </div>
 
             </li>

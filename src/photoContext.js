@@ -1,5 +1,5 @@
 import { useContext, useState, createContext, useEffect } from "react";
-import { collection, doc, setDoc, getDocs, onSnapshot, updateDoc, arrayUnion, deleteDoc } from "firebase/firestore";
+import { collection, doc, setDoc, getDocs, onSnapshot, updateDoc, arrayRemove, arrayUnion, deleteDoc } from "firebase/firestore";
 import { db } from "./firebaseInit";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,7 +21,8 @@ const PhotoProvider = ({ children }) => {
     const [imageURL, setImageURL] = useState('');
     const [albumID, setAlbumID] = useState('');
     const [images, setImages] = useState([]);
-
+    const [updateImage, setupdateImage] = useState(false);
+    const [ imageIndex,setImageIndex] = useState(-1);
 
     useEffect(() => {
         async function fetchData() {
@@ -111,16 +112,42 @@ const PhotoProvider = ({ children }) => {
     }
 
     const editImage = (i) => {
-
+        const temp = albums.findIndex((item) => item.id === albumID);
+        const img = albums[temp].images.find((item, index) => index === i)
+        setupdateImage(true);
+        setImageIndex(i)
+        setImageTitle(img.title);
+        setImageURL(img.url);
     }
 
-    const deleteImage = (i) => {
-        const obj = albums[albumID].images[i];
-        console.log(obj);
+    const updateImg = async () => {
+        const newImage = { title: imageTitle, url: imageURL };
+        const temp = albums.findIndex((item) => item.id === albumID);
+        const img = albums[temp].images.filter((item, index) => index !== imageIndex)
+        const newImg = [...img,newImage];
+        setImageTitle('');
+        setImageURL('');
+        setupdateImage(false);
+        setImages(newImg);
+        const docRef = doc(db, "albums", albumID);
+        await updateDoc(docRef, {
+            images: newImg
+        });
+    }
+
+    const deleteImage = async (i) => {
+        const temp = albums.findIndex((item) => item.id === albumID);
+        const img = albums[temp].images.filter((item, index) => index !== i)
+        setImages(img);
+        const imageToRemove = albums[temp].images[i];
+        const docRef = doc(db, "albums", albumID);
+        await updateDoc(docRef, {
+            images: arrayRemove(imageToRemove)
+        });
     }
 
     return (
-        <PhotoContext.Provider value={{ toggleAdd, handleAdd, handleAddAlbum, images, albums, albumName, setAlbumName, handleDelete, toggleAlbum, toggleImages, toggleAddImages, handleAddImages, addImage, imageTitle, setImageTitle, imageURL, setImageURL,deleteImage,editImage }}>
+        <PhotoContext.Provider value={{ toggleAdd, updateImg, handleAdd, handleAddAlbum, images, albums, albumName, setAlbumName, handleDelete, toggleAlbum, updateImage, toggleImages, toggleAddImages, handleAddImages, addImage, imageTitle, setImageTitle, imageURL, setImageURL, deleteImage, editImage }}>
             {children}
         </PhotoContext.Provider>
     )

@@ -3,7 +3,7 @@ import styles from "../styles/AlbumForm.module.css";
 import { useValue } from "../photoContext";
 
 const ImageForm = () => {
-    const {addImage,imageTitle, setImageTitle,imageURL, setImageURL} = useValue();
+    const {addImage,imageTitle, setImageTitle,imageURL, setImageURL,updateImage,updateImg} = useValue();
 
     return (
         <div className={styles.parentContainer}>
@@ -32,7 +32,7 @@ const ImageForm = () => {
                         onChange={(e) => setImageURL(e.target.value)}
                     />
                 </div>
-                <button className={styles.btn} onClick={addImage}>Add Image</button>
+                <button className={styles.btn} onClick={updateImage ? updateImg : addImage}>{updateImage ? 'Update' : 'Add Image'}</button>
                 <button className={styles.btn} onClick={() => { setImageTitle(''); setImageURL(''); }}>Clear</button>
             </div>
         </div>
